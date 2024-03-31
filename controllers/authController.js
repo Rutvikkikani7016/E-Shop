@@ -1,4 +1,5 @@
-import userModel from "../models/userModel.js";
+// import userModel from "../models/userModel.js";
+import userModel  from '../models/userModel.js';
 import orderModel from "../models/orderModel.js";
 import { comparePassword, hashPassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
@@ -241,6 +242,35 @@ export const getOrdersController = async (req, res) => {
       success: false,
       message: "Error WHile Geting Orders",
       error,
+    });
+  }
+};
+export const getAllUsersController = async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await userModel.find({});
+
+    // Check if there are no users
+    if (!users || users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No users found',
+      });
+    }
+
+    // If users are found, send them as a response
+    res.status(200).json({
+      success: true,
+      totalCount: users.length,
+      message: 'All users',
+      users,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Error in fetching users',
+      error: error.message,
     });
   }
 };

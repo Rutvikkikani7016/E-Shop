@@ -7,6 +7,7 @@ import {
   updateProfileController,
   getOrdersController,
   getAllOrdersController,
+  getAllUsersController,
 } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 
@@ -25,6 +26,7 @@ router.post("/forgot-password", forgotPasswordController);
 
 //test routes
 router.get("/test", requireSignIn, isAdmin, testController);
+router.get("/all-users",requireSignIn, isAdmin, getAllUsersController);
 
 //protected User route auth
 router.get("/user-auth", requireSignIn, (req, res) => {
@@ -44,6 +46,7 @@ router.get("/orders", requireSignIn, getOrdersController);
 
 //all orders
 router.get("/all-orders", requireSignIn, isAdmin, getAllOrdersController);
+
 
 // order status update
 // router.put(
