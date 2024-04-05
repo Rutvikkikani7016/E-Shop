@@ -1,5 +1,5 @@
 // import userModel from "../models/userModel.js";
-import userModel  from '../models/userModel.js';
+import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
 import { comparePassword, hashPassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
@@ -245,7 +245,7 @@ export const getOrdersController = async (req, res) => {
     });
   }
 };
-export const getAllUsersController = async (req, res) => {
+export const getAllUsersController1 = async (req, res) => {
   try {
     // Fetch all users from the database
     const users = await userModel.find({});
@@ -254,7 +254,7 @@ export const getAllUsersController = async (req, res) => {
     if (!users || users.length === 0) {
       return res.status(404).json({
         success: false,
-        message: 'No users found',
+        message: "No users found",
       });
     }
 
@@ -262,14 +262,33 @@ export const getAllUsersController = async (req, res) => {
     res.status(200).json({
       success: true,
       totalCount: users.length,
-      message: 'All users',
+      message: "All users",
       users,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({
       success: false,
-      message: 'Error in fetching users',
+      message: "Error in fetching users",
+      error: error.message,
+    });
+  }
+};
+
+export const getAllUsersController = async (req, res) => {
+  try {
+    const users = await userModel.find({});
+    res.json({
+      success: true,
+      totalCount: users.length,
+      message: "All users",
+      users,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error in fetching users",
       error: error.message,
     });
   }
@@ -324,3 +343,4 @@ export const testController = (req, res) => {
     res.send({ error });
   }
 };
+

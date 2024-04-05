@@ -1,3 +1,4 @@
+// Import necessary modules
 import React, { useState, useEffect } from "react";
 import AdminMenu from "../../components/Layout/AdminMenu";
 import Layout from "./../../components/Layout/Layout";
@@ -10,14 +11,13 @@ const Users = () => {
   // Fetch all users from the server
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get("/api/v1/products/all-users");
+      const { data } = await axios.get("/api/v1/auth/all-users"); // Corrected endpoint
       setUsers(data.users);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong while fetching users");
     }
   };
-  console.log(users);
 
   useEffect(() => {
     fetchUsers();
@@ -50,7 +50,7 @@ const Users = () => {
                       <td>{user.email}</td>
                       <td>{user.phone}</td>
                       <td>{user.address}</td>
-                      <td>{user.role}</td>
+                      <td>{user.role === 0 ? "User":"Admin"}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -21,12 +21,19 @@ router.post("/register", registerController);
 //LOGIN || POST
 router.post("/login", loginController);
 
+// Route to get all users
+router.get('/all-users', requireSignIn, isAdmin, getAllUsersController);
+
+// get all user route
+// router.get("/all-user", getAllUser);
+
 //Forgot Password || POST
 router.post("/forgot-password", forgotPasswordController);
 
 //test routes
 router.get("/test", requireSignIn, isAdmin, testController);
-router.get("/all-users",requireSignIn, isAdmin, getAllUsersController);
+
+
 
 //protected User route auth
 router.get("/user-auth", requireSignIn, (req, res) => {
